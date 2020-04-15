@@ -1,0 +1,57 @@
+<div class="container">
+  <h1>Sanitization work order options</h1>
+  <mat-card>
+    <mat-card-content class="card-content">
+
+      <mat-form-field class="input-field">
+        <mat-label>Building</mat-label>
+        <mat-select class="select-dropdown"
+                    [(ngModel)]="selectedBuilding">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let building of buildings" [value]="building">{{building.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="input-field">
+        <mat-label>Floor</mat-label>
+        <mat-select class="select-dropdown"
+                    [disabled]="!selectedBuilding"
+                    [(ngModel)]="selectedFloor">
+          <mat-option>None</mat-option>
+          <mat-option [value]="2">2</mat-option>
+          <mat-option [value]="3">3</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="input-field">
+        <mat-label>Space Type</mat-label>
+        <mat-select class="select-dropdown"
+                    [disabled]="!selectedFloor"
+                    [(ngModel)]="selectedType">
+          <mat-option>None</mat-option>
+          <mat-option>2</mat-option>
+          <mat-option>3</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="input-field">
+        <mat-label>Usage Threshold</mat-label>
+        <mat-select class="select-dropdown"
+                    [disabled]="!selectedType"
+                    [(ngModel)]="selectedUsage">
+          <mat-option *ngFor="let usage of usages" [value]="usage">{{usage}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="input-field">
+        <mat-label>Default Frequency</mat-label>
+        <mat-select class="select-dropdown"
+                    [disabled]="!selectedUsage"
+                    [(ngModel)]="selectedDefault">
+          <mat-option *ngFor="let def of defaults" [value]="def">{{def}}</mat-option>
+        </mat-select>
+        <mat-hint>Frequency to clean space if threshold is not reached</mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</div>
