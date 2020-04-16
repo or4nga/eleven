@@ -1,1 +1,64 @@
-<p>work-order works!</p>
+<mat-progress-bar *ngIf="!ticket" mode="indeterminate"></mat-progress-bar>
+<div class="container">
+  <div class="header-row">
+    <h1>Sanitization work order #{{ticket?.orderNumber}}</h1>
+    <button routerLink="/options" mat-raised-button>Options</button>
+  </div>
+
+  <div class="columns">
+    <div class="lhs">
+      <mat-card>
+        <mat-card-content>
+          <div class="info-container">
+            <div class="info-title">Date Entered</div>
+            <div>{{ticket?.dateEntered | date:'short'}}</div>
+          </div>
+          <div class="info-container">
+            <div class="info-title">Date Required</div>
+            <div>{{ticket?.dateRequired | date:'short'}}</div>
+          </div>
+          <div class="info-container">
+            <div class="info-title">Request Type</div>
+            <div>{{ticket?.requestType}}</div>
+          </div>
+          <div class="info-container">
+            <div class="info-title">Building</div>
+            <div>{{ticket?.building}}</div>
+          </div>
+          <div class="info-container">
+            <div class="info-title">Floor</div>
+            <div>{{ticket?.floor}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="rhs">
+      <mat-card>
+        <div class="info-title heading">Assigned operators</div>
+        <div class="user-row" *ngFor="let op of ticket?.operators">
+          <div class="avatar">
+            <div class="image" [ngStyle]="avatarStyle(op)"></div>
+          </div>
+          <div>{{op.firstName}} {{op.lastName}}</div>
+        </div>
+      </mat-card>
+
+      <mat-card>
+        <div class="info-title heading">Instructions</div>
+        <div *ngFor="let instruction of ticket?.instructions">{{instruction}}</div>
+      </mat-card>
+
+      <mat-card>
+        <div class="info-title heading">Locations</div>
+        <div class="locations-container">
+          <mat-checkbox *ngFor="let space of ticket?.spaces"
+                        color="primary"
+                        (change)="checked($event.checked, space)">
+            {{space.name}}
+          </mat-checkbox>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
